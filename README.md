@@ -1,2 +1,3 @@
 # Cine-de-barrio
-Pagina web desplegada con Django en Python. Creada para una asignatura.
+Web page develop for Django deployment using Python. It was created for a 
+subject assignment.

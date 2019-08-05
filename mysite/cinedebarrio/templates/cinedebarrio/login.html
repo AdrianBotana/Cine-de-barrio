@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="icon" href="https://vignette.wikia.nocookie.net/universosteven/images/2/2f/El_ganso_aprueba_esto_%28alta_calidad_4%29.png/revision/latest?cb=20160903030023&path-prefix=es" type="image/gif" sizes="16x16">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Signin Template for Bootstrap</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'cinedebarrio/signin.css' %}">
+
+</head>
+
+<body class="text-center">
+
+    <form class="form-signin" action={% url 'login_process' %} method="post">
+    {% csrf_token %}
+        <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+        <label for="inputUSer" class="sr-only">Username</label>
+        <input type="text" name="username" id="inputUSer" class="form-control" placeholder="User" required="" autofocus=""/>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required=""/>
+        <p>{{ error }}</p>
+        <button class="btn btn-lg btn-outline-primary btn-block" type="submit">Sign in</button>
+    </form>
+
+</body>
+</html>

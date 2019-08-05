@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="icon" href="https://vignette.wikia.nocookie.net/universosteven/images/2/2f/El_ganso_aprueba_esto_%28alta_calidad_4%29.png/revision/latest?cb=20160903030023&path-prefix=es" type="image/gif" sizes="16x16">
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'cinedebarrio/style.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Bangers" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <title>{{ film.name }}</title>
+</head>
+<body>
+<nav id="nav" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <img id="logo"
+         src="https://vignette.wikia.nocookie.net/universosteven/images/2/2f/El_ganso_aprueba_esto_%28alta_calidad_4%29.png/revision/latest?cb=20160903030023&path-prefix=es"
+         class="rounded-circle">
+    <a class="navbar-brand" href="{% url 'index' %}">Cine de Barrio</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'index' %}">Inicio<span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+        <div id="perfil">
+            <a class="link-ganso" href="{% url 'login' %}">
+                <img id="icon-perfil" src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male2-512.png"
+                     class="rounded-circle">
+            </a>
+            {% if request.user.is_authenticated %}
+            <label style="color: white;"> {{request.user}} </label>
+            <a class="link-ganso" href="{% url 'logout' %}">Logout </a>
+            {% else %}
+            <a class="link-ganso" href="{% url 'login' %}"> Login </a>
+            {% endif %}
+            {% if request.user.is_superuser %}
+            <a class="link-ganso" href="{% url 'admin' %}"> | Panel de Administrador </a>
+            {% endif %}
+
+        </div>
+        <form action="{% url 'search_film_user' %}" method="POST" class="form-inline my-2 my-lg-0">
+            {% csrf_token %}
+            <input class="form-control mr-sm-2" name="input_search" type="search" placeholder="Buscar"
+                   aria-label="Search">
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Buscar</button>
+        </form>
+    </div>
+</nav>
+
+<div id="jumbo" class="jumbotron text-center">
+    <h1 style="font-family: 'Bangers', cursive;"> {{ film.name }} </h1>
+</div>
+
+<div class="container" id="texto-web">
+    <div class="conteiner-Film row">
+        <div class="col-lg-4" style="text-align: center; padding: 15px; ">
+            <img class="img_film_show_style" src="{{ film.poster }}"/>
+            <h2 class="h2-propio">{{ film.name }}</h2>
+            <h3>Año: </h3>
+            <h4>{{ film.year }}</h4>
+            <h3>Puntuación: </h3>
+            <h4>{{ film.score }}</h4>
+            {% for star in stars %}
+                <img class="star-score" src="{% static 'cinedebarrio/star_ico.png' %}">
+            {% endfor %}
+        </div>
+        <div class="col-lg-8" style="padding: 15px;">
+
+            <h2 class="h2-propio" style="padding-left: 10px;">Descripción:</h2>
+            <p>{{ film.description }} </p>
+            <h2 class="h2-propio" style="padding-left: 10px;">Actores: </h2>
+            <p>{{ film.actors }}</p>
+            <h2 class="h2-propio" style="padding-left: 10px;">Director: </h2>
+            <p>{{ film.director }}</p>
+
+            <div class="embed-responsive embed-responsive-16by9" style="border-radius: 15px;">
+                <iframe class="embed-responsive-item" width="100%" src="{{ film.url }}" frameborder="0"
+                        allow="autoplay; encrypted-media"
+                        allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+  <p>Gandos Company</p>
+</footer>
+
+</body>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+      integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+</html>
